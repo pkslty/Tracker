@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,18 +22,131 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="X1L-B3-frn">
+                                <rect key="frame" x="324" y="321" width="70" height="254"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wt5-e5-zoU">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="B3Y-19-nfm"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" image="plus.circle" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="heavy"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapZoomInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7bj-KT-1BH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TR2-1D-ksc">
+                                        <rect key="frame" x="0.0" y="92" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="TOy-tn-tg7"/>
+                                            <constraint firstAttribute="height" constant="70" id="ipR-LO-BcT"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray">
+                                            <imageReference key="image" image="location.circle" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="heavy"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapSetCurrentLocationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2MG-F5-kCn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGh-c9-Q1C">
+                                        <rect key="frame" x="0.0" y="184" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="3us-GV-6ck"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="nLM-c5-2fP"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" image="minus.circle" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="heavy"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapZoomOutButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uOZ-Gh-AEA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="pjj-El-uRR">
+                                <rect key="frame" x="80" y="742" width="254" height="70"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVg-Sw-rRz">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="clH-M7-o8u"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="hwW-DF-sfI"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
+                                            <imageReference key="image" image="play" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
+                                        </state>
+                                        <buttonConfiguration key="configuration" style="gray">
+                                            <imageReference key="image" image="play" catalog="system" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="heavy"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapStartPauseButon:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n4i-N3-m1J"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUi-UX-HmQ">
+                                        <rect key="frame" x="92" y="0.0" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="UEZ-MC-v5u"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="h9L-xA-yQg"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray">
+                                            <imageReference key="image" image="stop.circle" catalog="system" symbolScale="default"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large" weight="heavy"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapStopButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dB7-md-Rq1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rv-1R-5jb">
+                                        <rect key="frame" x="184" y="0.0" width="70" height="70"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Pab-C4-1fd"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="luW-LL-dsn"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" image="arrow.down.to.line.circle" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="heavy"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapLoadTrackButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fxm-Jc-IFh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="P7R-RH-88h"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4dM-MY-NLU" secondAttribute="trailing" id="5R3-Ym-NhT"/>
                             <constraint firstItem="4dM-MY-NLU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="H1s-jT-HLu"/>
+                            <constraint firstItem="pjj-El-uRR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KKo-iC-Rui"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pjj-El-uRR" secondAttribute="bottom" constant="50" id="VFL-gv-Q8A"/>
+                            <constraint firstItem="X1L-B3-frn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="aFp-6Z-pJ8"/>
                             <constraint firstItem="4dM-MY-NLU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kvU-5g-DPc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="X1L-B3-frn" secondAttribute="trailing" constant="20" id="mjh-Ic-RZr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4dM-MY-NLU" secondAttribute="bottom" id="sqA-Ga-YdE"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loadTrackButton" destination="4rv-1R-5jb" id="9Gs-Js-kYc"/>
                         <outlet property="mapView" destination="4dM-MY-NLU" id="kEq-YH-3Sb"/>
+                        <outlet property="setCurrentLocationButton" destination="TR2-1D-ksc" id="8eY-N0-h5F"/>
+                        <outlet property="startPauseButton" destination="zVg-Sw-rRz" id="B5o-QN-RR2"/>
+                        <outlet property="stopButton" destination="DUi-UX-HmQ" id="Tge-8E-14n"/>
+                        <outlet property="zoomInButton" destination="wt5-e5-zoU" id="xp1-sC-KBh"/>
+                        <outlet property="zoomOutButton" destination="PGh-c9-Q1C" id="fLB-Ut-0Oq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -41,6 +155,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.down.to.line.circle" catalog="system" width="128" height="121"/>
+        <image name="location.circle" catalog="system" width="128" height="121"/>
+        <image name="minus.circle" catalog="system" width="128" height="121"/>
+        <image name="play" catalog="system" width="120" height="128"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <image name="stop.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
