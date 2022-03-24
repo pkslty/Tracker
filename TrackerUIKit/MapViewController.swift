@@ -24,18 +24,16 @@ class MapViewController: UIViewController {
     var locationManager: CLLocationManager?
     var polylines = [GMSPolyline]()
     var path: GMSMutablePath?
-    var completePath: GMSMutablePath?
+    var fullPath: GMSMutablePath?
     var isTracking = false
     var needToSetCurrentLocation = true
     let trackingZoom: Float = 15.0
     var zoom: Float = 15.0
     var realmTrack: Track?
     
-    
     var realm: Realm?
     var tracks: Results<Track>?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +41,6 @@ class MapViewController: UIViewController {
         configureMap()
         configureButtons()
         configureLocationManager()
-        
-        
     }
 
     private func configureRealm() {
@@ -52,7 +48,7 @@ class MapViewController: UIViewController {
             realm = try Realm()
         }
         catch {
-            print("Can not connect to Database. Saving tracks is not available")
+            showAlert("Error!", "Can not connect to Database. Saving tracks is not available", withCancelButton: false, nil)
         }
         tracks = realm?.objects(Track.self)
     }
@@ -98,7 +94,7 @@ class MapViewController: UIViewController {
             realmTrack = Track()
             polylines.forEach { $0.map = nil }
             polylines = []
-            completePath = GMSMutablePath()
+            fullPath = GMSMutablePath()
         } else {
             realmTrack?.encodedPaths.append(path?.encodedPath())
         }
@@ -110,16 +106,15 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func didTapStopButton(_ sender: Any) {
-        
         saveTrack(completion: nil)
     }
     
     private func saveTrack(completion: (() -> Void)?) {
         isTracking = false
         startPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
-        guard let path = path, let realmTrack = realmTrack, let completePath = completePath else { return }
+        guard let path = path, let realmTrack = realmTrack, let fullPath = fullPath else { return }
         realmTrack.encodedPaths.append(path.encodedPath())
-        realmTrack.completePath = completePath.encodedPath()
+        realmTrack.completePath = fullPath.encodedPath()
         realmTrack.endDate = Date()
         do {
             try realm?.write {
@@ -130,12 +125,13 @@ class MapViewController: UIViewController {
             showAlert("Error!", "Something goes wrong. Can not save track to database.", withCancelButton: false) { _ in
                 self.realmTrack = nil
                 self.path = nil
-                self.completePath = nil
+                self.fullPath = nil
+                return
             }
         }
         self.realmTrack = nil
         self.path = nil
-        self.completePath = nil
+        self.fullPath = nil
         showAlert("Success!", "Your track succesfully saved. ", withCancelButton: false) { _ in
             (completion ?? {})()
         }
@@ -201,12 +197,10 @@ extension MapViewController: CLLocationManagerDelegate {
         
         let position = GMSCameraPosition(target: coordinate, zoom: zoom)
         path?.add(coordinate)
-        completePath?.add(coordinate)
+        fullPath?.add(coordinate)
         polylines.last?.path = path
         mapView.animate(to: position)
-        needToSetCurrentLocation = false
-        
-        
+        needToSetCurrentLocation = false   
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
