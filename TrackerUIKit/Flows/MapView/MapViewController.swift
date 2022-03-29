@@ -10,7 +10,7 @@ import GoogleMaps
 import CoreLocation
 import RealmSwift
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, Storyboarded{
 
     @IBOutlet weak var mapView: GMSMapView!
     
@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var setCurrentLocationButton: UIButton!
     @IBOutlet weak var zoomInButton: UIButton!
     @IBOutlet weak var zoomOutButton: UIButton!
+    @IBOutlet weak var exitButton: UIButton!
     
     var locationManager: CLLocationManager?
     var polylines = [GMSPolyline]()
@@ -33,6 +34,9 @@ class MapViewController: UIViewController {
     
     var realm: Realm?
     var tracks: Results<Track>?
+    
+    var coordinator: MapViewCoordinator?
+    @UserDefault(key: "userId", defaultValue: nil) var userId: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +48,8 @@ class MapViewController: UIViewController {
     }
 
     private func configureRealm() {
-        do {
-            realm = try Realm()
-        }
-        catch {
-            showAlert("Error!", "Can not connect to Database. Saving tracks is not available", withCancelButton: false, nil)
+        if realm == nil {
+            showAlert("Ошибка!", "Не могу соединиться с базой данных, сохранение треков недоступно", withCancelButton: false, nil)
         }
         tracks = realm?.objects(Track.self)
     }
@@ -69,6 +70,7 @@ class MapViewController: UIViewController {
         setCurrentLocationButton.setTitle("", for: .normal)
         zoomInButton.setTitle("", for: .normal)
         zoomOutButton.setTitle("", for: .normal)
+        exitButton.setTitle("", for: .normal)
     }
     
     private func configureLocationManager() {
@@ -108,6 +110,17 @@ class MapViewController: UIViewController {
     @IBAction func didTapStopButton(_ sender: Any) {
         saveTrack(completion: nil)
     }
+    @IBAction func didTapExitButton(_ sender: Any) {
+        let message = isTracking ? "Завершить текущий трек и выйти?" : "Выйти из акквунта?"
+        showAlert("Внимание!", message) { [weak self] _ in
+            guard let self = self else { return }
+            if self.isTracking {
+                self.saveTrack(completion: { self.coordinator?.didFinish() })
+            } else {
+                self.coordinator?.didFinish()
+            }
+        }
+    }
     
     private func saveTrack(completion: (() -> Void)?) {
         isTracking = false
@@ -116,13 +129,14 @@ class MapViewController: UIViewController {
         realmTrack.encodedPaths.append(path.encodedPath())
         realmTrack.completePath = fullPath.encodedPath()
         realmTrack.endDate = Date()
+        realmTrack.userId = userId ?? ""
         do {
             try realm?.write {
                 realm?.add(realmTrack)
             }
         }
         catch {
-            showAlert("Error!", "Something goes wrong. Can not save track to database.", withCancelButton: false) { _ in
+            showAlert("Ошибка!", "Что-то пошло не так. Не могу сохранить трек", withCancelButton: false) { _ in
                 self.realmTrack = nil
                 self.path = nil
                 self.fullPath = nil
@@ -132,7 +146,7 @@ class MapViewController: UIViewController {
         self.realmTrack = nil
         self.path = nil
         self.fullPath = nil
-        showAlert("Success!", "Your track succesfully saved. ", withCancelButton: false) { _ in
+        showAlert("Поздравляю!", "YТрек успешно сохранен", withCancelButton: false) { _ in
             (completion ?? {})()
         }
     }
@@ -141,7 +155,9 @@ class MapViewController: UIViewController {
         let completion = {[weak self] in
             guard let self = self else { return }
             let tracksViewController = TracksViewController()
-            tracksViewController.tracks = self.tracks
+            if let userId = self.userId {
+                tracksViewController.tracks = self.tracks?.where { $0.userId == userId }
+            }
             tracksViewController.completion = { encodedPaths, encodedFullPath in
                 encodedPaths.forEach { encodedPath in
                     guard let encodedPath = encodedPath else { return }
