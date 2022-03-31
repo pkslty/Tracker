@@ -110,6 +110,7 @@ class MapViewController: UIViewController, Storyboarded{
     @IBAction func didTapStopButton(_ sender: Any) {
         saveTrack(completion: nil)
     }
+    
     @IBAction func didTapExitButton(_ sender: Any) {
         let message = isTracking ? "Завершить текущий трек и выйти?" : "Выйти из акквунта?"
         showAlert("Внимание!", message) { [weak self] _ in
@@ -127,7 +128,7 @@ class MapViewController: UIViewController, Storyboarded{
         startPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
         guard let path = path, let realmTrack = realmTrack, let fullPath = fullPath else { return }
         realmTrack.encodedPaths.append(path.encodedPath())
-        realmTrack.completePath = fullPath.encodedPath()
+        realmTrack.fullPath = fullPath.encodedPath()
         realmTrack.endDate = Date()
         realmTrack.userId = userId ?? ""
         do {
@@ -146,7 +147,7 @@ class MapViewController: UIViewController, Storyboarded{
         self.realmTrack = nil
         self.path = nil
         self.fullPath = nil
-        showAlert("Поздравляю!", "YТрек успешно сохранен", withCancelButton: false) { _ in
+        showAlert("Поздравляю!", "Трек успешно сохранен", withCancelButton: false) { _ in
             (completion ?? {})()
         }
     }

@@ -14,6 +14,7 @@ class LoginCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var navigationController: UINavigationController
     var type: CoordinatorType
+    var viewController: LoginViewController?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -21,7 +22,8 @@ class LoginCoordinator: Coordinator {
     }
     
     func start(with data: Any?) {
-        let viewController = LoginViewController.instantiate()
+        viewController = LoginViewController.instantiate()
+        guard let viewController = viewController else { return }
         viewController.coordinator = self
         viewController.realm = data as? Realm
         navigationController.pushViewController(viewController, animated: true)
@@ -32,6 +34,9 @@ class LoginCoordinator: Coordinator {
     }
     
     func didFinish(with data: Any?) {
+        viewController?.coordinator = nil
+        viewController = nil
+        navigationController.popViewController(animated: false)
         parentCoordinator?.childDidFinish(self, with: data)
     }
 }

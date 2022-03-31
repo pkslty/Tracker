@@ -57,7 +57,7 @@ extension TracksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tracks = tracks?[indexPath.row] else { return }
         let encodedPaths = Array(tracks.encodedPaths)
-        let fullPath = tracks.completePath
+        let fullPath = tracks.fullPath
         completion?(encodedPaths, fullPath)
         dismiss(animated: true)
     }

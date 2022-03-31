@@ -12,6 +12,6 @@ class Track: Object {
     @Persisted var startDate: Date = Date()
     @Persisted var endDate: Date?
     @Persisted var encodedPaths: List<String?>
-    @Persisted var completePath: String?
+    @Persisted var fullPath: String?
     @Persisted var userId: String
 }

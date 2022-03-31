@@ -15,13 +15,16 @@ class MapViewCoordinator: Coordinator {
     var navigationController: UINavigationController
     var type: CoordinatorType
     
+    var viewController: MapViewController?
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.type = .mapViewCoordinator
     }
     
     func start(with data: Any?) {
-        let viewController = MapViewController.instantiate()
+        viewController = MapViewController.instantiate()
+        guard let viewController = viewController else { return }
         viewController.coordinator = self
         viewController.realm = data as? Realm
         navigationController.pushViewController(viewController, animated: true)
@@ -32,6 +35,8 @@ class MapViewCoordinator: Coordinator {
     }
     
     func didFinish() {
+        viewController?.coordinator = nil
+        viewController = nil
         parentCoordinator?.childDidFinish(self, with: nil)
     }
 }
