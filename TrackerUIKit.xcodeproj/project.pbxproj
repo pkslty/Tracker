@@ -18,6 +18,10 @@
 		9235214F27E60F3C008D357E /* TrackerUIKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9235214E27E60F3C008D357E /* TrackerUIKitTests.swift */; };
 		9235215927E60F3C008D357E /* TrackerUIKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9235215827E60F3C008D357E /* TrackerUIKitUITests.swift */; };
 		9235215B27E60F3C008D357E /* TrackerUIKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9235215A27E60F3C008D357E /* TrackerUIKitUITestsLaunchTests.swift */; };
+		92E7EB1027EB49FF00BE8777 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 92E7EB0F27EB49FF00BE8777 /* Podfile */; };
+		92E7EB1227EB58F300BE8777 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1127EB58F300BE8777 /* Track.swift */; };
+		92E7EB1427EBB6FA00BE8777 /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */; };
+		92E7EB1627EC70D900BE8777 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1527EC70D900BE8777 /* ShowAlert.swift */; };
 		D52ED0FD9F6EDE1B82D1BE20 /* Pods_TrackerUIKit_TrackerUIKitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98767E11A43F797FD823783D /* Pods_TrackerUIKit_TrackerUIKitUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +63,10 @@
 		9235215427E60F3C008D357E /* TrackerUIKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackerUIKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9235215827E60F3C008D357E /* TrackerUIKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerUIKitUITests.swift; sourceTree = "<group>"; };
 		9235215A27E60F3C008D357E /* TrackerUIKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerUIKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		92E7EB0F27EB49FF00BE8777 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		92E7EB1127EB58F300BE8777 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewController.swift; sourceTree = "<group>"; };
+		92E7EB1527EC70D900BE8777 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		98767E11A43F797FD823783D /* Pods_TrackerUIKit_TrackerUIKitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrackerUIKit_TrackerUIKitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD35895524B5B51B2F3CE359 /* Pods-TrackerUIKit-TrackerUIKitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrackerUIKit-TrackerUIKitUITests.release.xcconfig"; path = "Target Support Files/Pods-TrackerUIKit-TrackerUIKitUITests/Pods-TrackerUIKit-TrackerUIKitUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,10 +137,14 @@
 				9235213727E60F3B008D357E /* AppDelegate.swift */,
 				9235213927E60F3B008D357E /* SceneDelegate.swift */,
 				9235213B27E60F3B008D357E /* MapViewController.swift */,
+				92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */,
 				9235213D27E60F3B008D357E /* Main.storyboard */,
 				9235214027E60F3C008D357E /* Assets.xcassets */,
 				9235214227E60F3C008D357E /* LaunchScreen.storyboard */,
 				9235214527E60F3C008D357E /* Info.plist */,
+				92E7EB0F27EB49FF00BE8777 /* Podfile */,
+				92E7EB1127EB58F300BE8777 /* Track.swift */,
+				92E7EB1527EC70D900BE8777 /* ShowAlert.swift */,
 			);
 			path = TrackerUIKit;
 			sourceTree = "<group>";
@@ -179,6 +191,7 @@
 				9235213127E60F3B008D357E /* Frameworks */,
 				9235213227E60F3B008D357E /* Resources */,
 				65D83D1286C5CDC795EDDA6B /* [CP] Copy Pods Resources */,
+				9AB93FB8000D6324F64F049D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -217,6 +230,7 @@
 				9235215127E60F3C008D357E /* Frameworks */,
 				9235215227E60F3C008D357E /* Resources */,
 				8E37511006D8CF95A1A4424A /* [CP] Copy Pods Resources */,
+				67EA38D9C6A36D03DFA332AD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -278,6 +292,7 @@
 			files = (
 				9235214427E60F3C008D357E /* LaunchScreen.storyboard in Resources */,
 				9235214127E60F3C008D357E /* Assets.xcassets in Resources */,
+				92E7EB1027EB49FF00BE8777 /* Podfile in Resources */,
 				9235213F27E60F3B008D357E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +329,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit/Pods-TrackerUIKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67EA38D9C6A36D03DFA332AD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit-TrackerUIKitUITests/Pods-TrackerUIKit-TrackerUIKitUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit-TrackerUIKitUITests/Pods-TrackerUIKit-TrackerUIKitUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit-TrackerUIKitUITests/Pods-TrackerUIKit-TrackerUIKitUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		86C4B06B00D7DE26B6B274C3 /* [CP] Check Pods Manifest.lock */ = {
@@ -353,6 +385,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit-TrackerUIKitUITests/Pods-TrackerUIKit-TrackerUIKitUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9AB93FB8000D6324F64F049D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit/Pods-TrackerUIKit-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit/Pods-TrackerUIKit-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TrackerUIKit/Pods-TrackerUIKit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B33E59E1AB8FFF4CE623E51E /* [CP] Check Pods Manifest.lock */ = {
@@ -407,8 +456,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9235213C27E60F3B008D357E /* MapViewController.swift in Sources */,
+				92E7EB1627EC70D900BE8777 /* ShowAlert.swift in Sources */,
 				9235213827E60F3B008D357E /* AppDelegate.swift in Sources */,
 				9235213A27E60F3B008D357E /* SceneDelegate.swift in Sources */,
+				92E7EB1227EB58F300BE8777 /* Track.swift in Sources */,
+				92E7EB1427EBB6FA00BE8777 /* TracksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,7 +566,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -568,7 +620,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
