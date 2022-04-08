@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension MapViewController {
+extension UIViewController {
     func showAlert(_ title: String?,_ message: String?, withCancelButton: Bool = true, _ okCompletion: ((UIAlertAction) -> Void)?, _ cancelCompletion: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title,
                                      message: message,
