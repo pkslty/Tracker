@@ -9,6 +9,7 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import RealmSwift
+import RxSwift
 
 class MapViewController: UIViewController, Storyboarded{
 
@@ -22,7 +23,6 @@ class MapViewController: UIViewController, Storyboarded{
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var exitButton: UIButton!
     
-    var locationManager: CLLocationManager?
     var polylines = [GMSPolyline]()
     var path: GMSMutablePath?
     var fullPath: GMSMutablePath?
@@ -31,6 +31,8 @@ class MapViewController: UIViewController, Storyboarded{
     let trackingZoom: Float = 15.0
     var zoom: Float = 15.0
     var realmTrack: Track?
+    var disposeBag = DisposeBag()
+    var locationManager: ObservedLocationManager?
     
     var realm: Realm?
     var tracks: Results<Track>?
@@ -60,7 +62,6 @@ class MapViewController: UIViewController, Storyboarded{
         mapView.camera = camera
         mapView.isMyLocationEnabled = true
         mapView.tintColor = .blue
-        mapView.delegate = self
     }
     
     private func configureButtons() {
@@ -74,11 +75,21 @@ class MapViewController: UIViewController, Storyboarded{
     }
     
     private func configureLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager?.requestAlwaysAuthorization()
-        locationManager?.allowsBackgroundLocationUpdates = true
-        locationManager?.delegate = self
-        locationManager?.startUpdatingLocation()
+        
+        locationManager = ObservedLocationManager()
+        locationManager?.coordinate
+            .subscribe {[weak self] event in
+                guard let self = self, let coordinate = event.element else { return }
+                if self.isTracking || self.needToSetCurrentLocation {
+                    let position = GMSCameraPosition(target: coordinate, zoom: self.zoom)
+                    self.path?.add(coordinate)
+                    self.fullPath?.add(coordinate)
+                    self.polylines.last?.path = self.path
+                    self.mapView.animate(to: position)
+                    self.needToSetCurrentLocation = false
+                }
+            }
+            .disposed(by: disposeBag)
     }
 
     @IBAction func didTapSetCurrentLocationButton(_ sender: Any) {
@@ -203,25 +214,4 @@ class MapViewController: UIViewController, Storyboarded{
     }
 }
 
-extension MapViewController: GMSMapViewDelegate {
-
-}
-
-extension MapViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let coordinate = locations.first?.coordinate, isTracking || needToSetCurrentLocation else { return }
-        
-        let position = GMSCameraPosition(target: coordinate, zoom: zoom)
-        path?.add(coordinate)
-        fullPath?.add(coordinate)
-        polylines.last?.path = path
-        mapView.animate(to: position)
-        needToSetCurrentLocation = false   
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-}
 
