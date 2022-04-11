@@ -20,17 +20,19 @@ class LoginViewController: UIViewController, Storyboarded {
     var realm: Realm?
     @UserDefault(key: "userId", defaultValue: nil) var userId: String?
     var users: Results<User>?
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         users = realm?.objects(User.self)
         
-        let observerable = Observable.combineLatest(loginField.rx.text, passwordField.rx.text)
+        Observable.combineLatest(loginField.rx.text, passwordField.rx.text)
             .subscribe {
                 let isButtonsEnable = !($0?.isEmpty ?? true || $1?.isEmpty ?? true) ? true : false
                 self.loginButton.isEnabled = isButtonsEnable
                 self.registerButton.isEnabled = isButtonsEnable
             }
+            .disposed(by: disposeBag)
         
     }
     @IBAction func didTapLoginButton(_ sender: Any) {
