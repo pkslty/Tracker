@@ -8,6 +8,8 @@ target 'TrackerUIKit' do
   # Pods for TrackerUIKit
   pod 'GoogleMaps', '6.1.0'
   pod 'RealmSwift', '~>10'
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
 
   target 'TrackerUIKitTests' do
     inherit! :search_paths

@@ -28,7 +28,6 @@
 		92630A2C27F2EFB400CA1C41 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92630A2B27F2EFB400CA1C41 /* UserDefault.swift */; };
 		92630A2E27F2F7B700CA1C41 /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92630A2D27F2F7B700CA1C41 /* MapViewCoordinator.swift */; };
 		92630A3427F305B200CA1C41 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92630A3327F305B200CA1C41 /* LoginCoordinator.swift */; };
-		92E7EB1027EB49FF00BE8777 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 92E7EB0F27EB49FF00BE8777 /* Podfile */; };
 		92E7EB1227EB58F300BE8777 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1127EB58F300BE8777 /* Track.swift */; };
 		92E7EB1427EBB6FA00BE8777 /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */; };
 		92E7EB1627EC70D900BE8777 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1527EC70D900BE8777 /* ShowAlert.swift */; };
@@ -83,7 +82,6 @@
 		92630A2B27F2EFB400CA1C41 /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		92630A2D27F2F7B700CA1C41 /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
 		92630A3327F305B200CA1C41 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
-		92E7EB0F27EB49FF00BE8777 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		92E7EB1127EB58F300BE8777 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewController.swift; sourceTree = "<group>"; };
 		92E7EB1527EC70D900BE8777 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 				9235214027E60F3C008D357E /* Assets.xcassets */,
 				9235214227E60F3C008D357E /* LaunchScreen.storyboard */,
 				9235214527E60F3C008D357E /* Info.plist */,
-				92E7EB0F27EB49FF00BE8777 /* Podfile */,
 			);
 			path = TrackerUIKit;
 			sourceTree = "<group>";
@@ -378,7 +375,6 @@
 			files = (
 				9235214427E60F3C008D357E /* LaunchScreen.storyboard in Resources */,
 				9235214127E60F3C008D357E /* Assets.xcassets in Resources */,
-				92E7EB1027EB49FF00BE8777 /* Podfile in Resources */,
 				9235213F27E60F3B008D357E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

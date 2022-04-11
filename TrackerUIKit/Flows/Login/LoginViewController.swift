@@ -7,11 +7,15 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController, Storyboarded {
     
     @IBOutlet weak var loginField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
     var coordinator: LoginCoordinator?
     var realm: Realm?
     @UserDefault(key: "userId", defaultValue: nil) var userId: String?
@@ -20,6 +24,14 @@ class LoginViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         users = realm?.objects(User.self)
+        
+        let observerable = Observable.combineLatest(loginField.rx.text, passwordField.rx.text)
+            .subscribe {
+                let isButtonsEnable = !($0?.isEmpty ?? true || $1?.isEmpty ?? true) ? true : false
+                self.loginButton.isEnabled = isButtonsEnable
+                self.registerButton.isEnabled = isButtonsEnable
+            }
+        
     }
     @IBAction func didTapLoginButton(_ sender: Any) {
         guard !isFieldsEpty() else { return }

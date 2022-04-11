@@ -252,8 +252,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="9Ge-zb-AK3" id="fWa-so-ILe"/>
                         <outlet property="loginField" destination="Wy5-ae-5FL" id="SuR-u0-ON9"/>
                         <outlet property="passwordField" destination="ZAO-w2-Jkx" id="xBk-LF-d8m"/>
+                        <outlet property="registerButton" destination="Ogo-bJ-I5v" id="Hi3-mI-FQy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B91-3Y-eH5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
