@@ -52,6 +52,7 @@ class AppCoordinator: Coordinator {
                 childCoordinators.remove(at: index)
             }
         }
+        
         switch child.type {
         case .loginCoordinator:
             let newChild = MapViewCoordinator(navigationController: navigationController)
