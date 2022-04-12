@@ -26,7 +26,11 @@ class LoginCoordinator: Coordinator {
         guard let viewController = viewController else { return }
         viewController.coordinator = self
         viewController.realm = data as? Realm
+        print(navigationController.children)
         navigationController.pushViewController(viewController, animated: true)
+        if navigationController.viewControllers.count > 1 {
+            navigationController.viewControllers.removeFirst()
+        }
     }
     
     func childDidFinish(_ child: Coordinator, with data: Any?) {
@@ -36,7 +40,6 @@ class LoginCoordinator: Coordinator {
     func didFinish(with data: Any?) {
         viewController?.coordinator = nil
         viewController = nil
-        navigationController.popViewController(animated: false)
         parentCoordinator?.childDidFinish(self, with: data)
     }
 }
