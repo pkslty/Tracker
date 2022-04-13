@@ -10,7 +10,7 @@ import UserNotifications
 
 class NotificationManager {
     
-    var center: UNUserNotificationCenter?
+    private var center: UNUserNotificationCenter?
     
     init() {
         self.center = UNUserNotificationCenter.current()
@@ -22,6 +22,14 @@ class NotificationManager {
                 print("Notifications not granted")
             }
         }
+    }
+    
+    func removeNotification(identifier: [String]) {
+        center?.removePendingNotificationRequests(withIdentifiers: identifier)
+    }
+    
+    func removeAllNotifications() {
+        center?.removeAllPendingNotificationRequests()
     }
     
     func makeDelayedNotification(title: String?,
