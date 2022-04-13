@@ -29,6 +29,7 @@
 		92630A2E27F2F7B700CA1C41 /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92630A2D27F2F7B700CA1C41 /* MapViewCoordinator.swift */; };
 		92630A3427F305B200CA1C41 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92630A3327F305B200CA1C41 /* LoginCoordinator.swift */; };
 		92CC09222804747600D54407 /* ObservedLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CC09212804747600D54407 /* ObservedLocationManager.swift */; };
+		92E681C62806C37400A94081 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E681C52806C37400A94081 /* NotificationManager.swift */; };
 		92E7EB1227EB58F300BE8777 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1127EB58F300BE8777 /* Track.swift */; };
 		92E7EB1427EBB6FA00BE8777 /* TracksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */; };
 		92E7EB1627EC70D900BE8777 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7EB1527EC70D900BE8777 /* ShowAlert.swift */; };
@@ -84,6 +85,7 @@
 		92630A2D27F2F7B700CA1C41 /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
 		92630A3327F305B200CA1C41 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		92CC09212804747600D54407 /* ObservedLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservedLocationManager.swift; sourceTree = "<group>"; };
+		92E681C52806C37400A94081 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		92E7EB1127EB58F300BE8777 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		92E7EB1327EBB6FA00BE8777 /* TracksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksViewController.swift; sourceTree = "<group>"; };
 		92E7EB1527EC70D900BE8777 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				92CC09212804747600D54407 /* ObservedLocationManager.swift */,
+				92E681C52806C37400A94081 /* NotificationManager.swift */,
 				92630A2F27F2F85000CA1C41 /* Flows */,
 				92630A1627F261CC00CA1C41 /* Model */,
 				92630A2127F2684F00CA1C41 /* Coordinator */,
@@ -552,6 +555,7 @@
 				92630A2C27F2EFB400CA1C41 /* UserDefault.swift in Sources */,
 				92630A2727F268DD00CA1C41 /* Crypto.swift in Sources */,
 				92630A2327F2687A00CA1C41 /* User.swift in Sources */,
+				92E681C62806C37400A94081 /* NotificationManager.swift in Sources */,
 				92630A1E27F2683800CA1C41 /* Coordinator.swift in Sources */,
 				92CC09222804747600D54407 /* ObservedLocationManager.swift in Sources */,
 				92630A2A27F2EE5200CA1C41 /* LoginViewController.swift in Sources */,
