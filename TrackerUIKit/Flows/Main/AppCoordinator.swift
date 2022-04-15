@@ -32,11 +32,11 @@ class AppCoordinator: Coordinator {
             return
         }
         if let userId = userId,
-           let _ = realm?.objects(User.self).first(where: { $0.id.uuidString == userId }) {
+           let user = realm?.objects(User.self).first(where: { $0.id.uuidString == userId }) {
             let coordinator = MapViewCoordinator(navigationController: navigationController)
             childCoordinators.append(coordinator)
             coordinator.parentCoordinator = self
-            coordinator.start(with: realm)
+            coordinator.start(with: (realm, user))
         } else {
             self.userId = nil
             let coordinator = LoginCoordinator(navigationController: navigationController)

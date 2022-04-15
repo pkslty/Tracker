@@ -59,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        let minutes: TimeInterval = 0.1
+        let minutes: TimeInterval = 0.3
         notificationManager?.makeDelayedNotification(title: "Tracker App",
                                                      subtitle: "Miss you",
                                                      body: "Please get back to track your position",

@@ -36,7 +36,6 @@ class LoginViewController: UIViewController, Storyboarded {
         
     }
     @IBAction func didTapLoginButton(_ sender: Any) {
-        guard !isFieldsEpty() else { return }
         guard let login = loginField.text,
               let password = passwordField.text else { return }
         let passwordHash = password.MD5()
@@ -53,38 +52,9 @@ class LoginViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func didTapRegisterButton(_ sender: Any) {
-        guard !isFieldsEpty() else { return }
-        guard let login = loginField.text,
-              let password = passwordField.text else { return }
-        let user = users?.first(where: { $0.login == login })
-        if let _ = user {
-            showAlert("Ошибка!", "gользователь с таким имененм уже существует", withCancelButton: false, nil)
-            return
-        } else {
-            let newUser = User()
-            newUser.login = login
-            newUser.passwordHash = password.MD5()
-            newUser.name = login
-            newUser.id = UUID()
-            do {
-                try realm?.write {
-                    realm?.add(newUser)
-                }
-            }
-            catch {
-                showAlert("Ошибка!", "Что-то пошло не так. Не могу сохранить полльзователя в базу данных", withCancelButton: false, nil)
-            }
-            showAlert("Поздравляю!", "Пользователь успешно зарегистрирован", withCancelButton: false, nil)
-            loginField.text = ""
-            passwordField.text = ""
-        }
-    }
-    
-    private func isFieldsEpty() -> Bool {
-        if loginField.text?.isEmpty ?? true || passwordField.text?.isEmpty ?? true {
-            showAlert("Ошибка!", "Поля Имя пользователя и Пароль не могут быть пустыми", withCancelButton: false, nil)
-            return true
-        }
-        return false
+        guard let login = loginField.text else { return }
+        
+        coordinator?.didFinish(with: (login, realm))
+
     }
 }

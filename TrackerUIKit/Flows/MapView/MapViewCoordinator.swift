@@ -24,9 +24,10 @@ class MapViewCoordinator: Coordinator {
     
     func start(with data: Any?) {
         viewController = MapViewController.instantiate()
-        guard let viewController = viewController else { return }
+        guard let viewController = viewController, let data = data as? (Realm, User) else { return }
         viewController.coordinator = self
-        viewController.realm = data as? Realm
+        viewController.realm = data.0
+        viewController.user = data.1
         navigationController.pushViewController(viewController, animated: true)
         
         if navigationController.viewControllers.count > 1 {

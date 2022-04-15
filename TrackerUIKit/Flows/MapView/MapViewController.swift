@@ -33,6 +33,8 @@ class MapViewController: UIViewController, Storyboarded{
     var realmTrack: Track?
     var disposeBag = DisposeBag()
     var locationManager: ObservedLocationManager?
+    var currentPositionMarker: GMSMarker?
+    var user: User?
     
     var realm: Realm?
     var tracks: Results<Track>?
@@ -60,8 +62,13 @@ class MapViewController: UIViewController, Storyboarded{
         let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504)
         let camera = GMSCameraPosition(target: coordinate, zoom: zoom)
         mapView.camera = camera
-        mapView.isMyLocationEnabled = true
         mapView.tintColor = .blue
+        currentPositionMarker = GMSMarker()
+        if let data = user?.userImageData {
+            currentPositionMarker?.icon = UIImage(data: data)
+        } else {
+            mapView.isMyLocationEnabled = true
+        }
     }
     
     private func configureButtons() {
@@ -80,6 +87,10 @@ class MapViewController: UIViewController, Storyboarded{
         locationManager?.coordinate
             .subscribe {[weak self] event in
                 guard let self = self, let coordinate = event.element else { return }
+                if self.user != nil {
+                    self.currentPositionMarker?.position = coordinate
+                    self.currentPositionMarker?.map = self.mapView
+                }
                 if self.isTracking || self.needToSetCurrentLocation {
                     let position = GMSCameraPosition(target: coordinate, zoom: self.zoom)
                     self.path?.add(coordinate)
