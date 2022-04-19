@@ -19,8 +19,8 @@ class LoginViewController: UIViewController, Storyboarded {
     var coordinator: LoginCoordinator?
     var realm: Realm?
     @UserDefault(key: "userId", defaultValue: nil) var userId: String?
-    var users: Results<User>?
-    let disposeBag = DisposeBag()
+    private var users: Results<User>?
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

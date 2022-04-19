@@ -12,4 +12,5 @@ enum CoordinatorType {
     case loginCoordinator
     case registerCoordinator
     case mapViewCoordinator
+    case settingsCoordinator
 }

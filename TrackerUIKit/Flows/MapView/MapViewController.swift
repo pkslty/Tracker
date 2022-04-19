@@ -14,7 +14,6 @@ import RxSwift
 class MapViewController: UIViewController, Storyboarded{
 
     @IBOutlet weak var mapView: GMSMapView!
-    
     @IBOutlet weak var startPauseButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var loadTrackButton: UIButton!
@@ -22,25 +21,26 @@ class MapViewController: UIViewController, Storyboarded{
     @IBOutlet weak var zoomInButton: UIButton!
     @IBOutlet weak var zoomOutButton: UIButton!
     @IBOutlet weak var exitButton: UIButton!
-    
-    var polylines = [GMSPolyline]()
-    var path: GMSMutablePath?
-    var fullPath: GMSMutablePath?
-    var isTracking = false
-    var needToSetCurrentLocation = true
-    let trackingZoom: Float = 15.0
-    var zoom: Float = 15.0
-    var realmTrack: Track?
-    var disposeBag = DisposeBag()
-    var locationManager: ObservedLocationManager?
-    var currentPositionMarker: GMSMarker?
-    var user: User?
-    
-    var realm: Realm?
-    var tracks: Results<Track>?
+    @IBOutlet weak var settingsButton: UIButton!
     
     var coordinator: MapViewCoordinator?
+    var realm: Realm?
     @UserDefault(key: "userId", defaultValue: nil) var userId: String?
+    
+    private var polylines = [GMSPolyline]()
+    private var path: GMSMutablePath?
+    private var fullPath: GMSMutablePath?
+    private var isTracking = false
+    private var needToSetCurrentLocation = true
+    private let trackingZoom: Float = 15.0
+    private var zoom: Float = 15.0
+    private var realmTrack: Track?
+    private var disposeBag = DisposeBag()
+    private var locationManager: ObservedLocationManager?
+    private var currentPositionMarker: GMSMarker?
+    private var tracks: Results<Track>?
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,17 +58,38 @@ class MapViewController: UIViewController, Storyboarded{
         tracks = realm?.objects(Track.self)
     }
     
+    func configureTracking() {
+        let documentDirectory = FileManager
+            .default
+            .urls(
+                for: .documentDirectory,
+                in: .userDomainMask)
+            .first
+        if let userId = userId, let realm = realm, let id = UUID(uuidString: userId),
+           let user = realm.objects(User.self).first(where: { $0.id == id }), user.useAvatarForTracking,
+           let filePath = documentDirectory?.appendingPathComponent("\(userId)").path, let image = UIImage(contentsOfFile: filePath) {
+            currentPositionMarker = GMSMarker()
+            let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            view.layer.cornerRadius = 15
+            view.clipsToBounds = true
+            view.contentMode = .scaleToFill
+            view.image = image
+            currentPositionMarker?.iconView = view
+            mapView.isMyLocationEnabled = false
+        } else {
+            currentPositionMarker = nil
+            mapView.isMyLocationEnabled = true
+        }
+        mapView.clear()
+    }
+    
     private func configureMap() {
         let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504)
         let camera = GMSCameraPosition(target: coordinate, zoom: zoom)
         mapView.camera = camera
         mapView.tintColor = .blue
-        currentPositionMarker = GMSMarker()
-        if let data = user?.userImageData {
-            currentPositionMarker?.icon = UIImage(data: data)
-        } else {
-            mapView.isMyLocationEnabled = true
-        }
+        
+        configureTracking()
     }
     
     private func configureButtons() {
@@ -79,15 +100,20 @@ class MapViewController: UIViewController, Storyboarded{
         zoomInButton.setTitle("", for: .normal)
         zoomOutButton.setTitle("", for: .normal)
         exitButton.setTitle("", for: .normal)
+        if userId != nil {
+            settingsButton.isEnabled = true
+            settingsButton.setTitle("", for: .normal)
+        } else {
+            settingsButton.isEnabled = false
+        }
     }
     
     private func configureLocationManager() {
-        
         locationManager = ObservedLocationManager()
         locationManager?.coordinate
             .subscribe {[weak self] event in
                 guard let self = self, let coordinate = event.element else { return }
-                if self.user != nil {
+                if self.userId != nil {
                     self.currentPositionMarker?.position = coordinate
                     self.currentPositionMarker?.map = self.mapView
                 }
@@ -111,6 +137,8 @@ class MapViewController: UIViewController, Storyboarded{
     
     @IBAction func didTapStartPauseButon(_ sender: Any) {
         isTracking.toggle()
+        settingsButton.isUserInteractionEnabled = false
+        settingsButton.tintColor = .gray
         let buttonImage = isTracking ? UIImage(systemName: "pause") : UIImage(systemName: "play")
         startPauseButton.setImage(buttonImage, for: .normal)
         
@@ -130,7 +158,11 @@ class MapViewController: UIViewController, Storyboarded{
     }
     
     @IBAction func didTapStopButton(_ sender: Any) {
-        saveTrack(completion: nil)
+        
+        saveTrack {
+            self.settingsButton.isUserInteractionEnabled = true
+            self.settingsButton.tintColor = .link
+        }
     }
     
     @IBAction func didTapExitButton(_ sender: Any) {
@@ -222,6 +254,9 @@ class MapViewController: UIViewController, Storyboarded{
             zoom -= 1
         }
         mapView.animate(toZoom: zoom)
+    }
+    @IBAction func didTapSettingsButton(_ sender: Any) {
+        coordinator?.didTapSettingsButton(with: realm)
     }
 }
 

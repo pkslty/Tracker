@@ -28,7 +28,6 @@ class RegisterCoordinator: Coordinator {
             viewController.username = data.0
             viewController.realm = data.1
         }
-        //navigationController.pushViewController(viewController, animated: true)
         navigationController.present(viewController, animated: true)
         
         

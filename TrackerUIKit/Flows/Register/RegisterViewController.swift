@@ -23,6 +23,7 @@ class RegisterViewController: UIViewController, Storyboarded {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var useAvatarSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,20 @@ class RegisterViewController: UIViewController, Storyboarded {
             newUser.passwordHash = password.MD5()
             newUser.name = username
             newUser.id = UUID()
-            newUser.userImageData = userImage.image?.pngData()
+            newUser.useAvatarForTracking = useAvatarSwitch.isOn
+            let data = userImage.image?.pngData()
+            
+            let documentDirectory = FileManager
+                .default
+                .urls(
+                    for: .documentDirectory,
+                    in: .userDomainMask)
+                .first
+            let filePath = documentDirectory!.appendingPathComponent("\(newUser.id.uuidString)").path
+            
+            
+            FileManager.default
+                .createFile(atPath: filePath, contents: data, attributes: nil)
             do {
                 try realm?.write {
                     realm?.add(newUser)
@@ -69,6 +83,7 @@ class RegisterViewController: UIViewController, Storyboarded {
                 self.userNameField.text = ""
                 self.passwordField.text = ""
                 self.dismiss(animated: true)
+                self.userId = newUser.id.uuidString
                 self.coordinator?.didFinish(with: username)
             }
         }
@@ -76,11 +91,53 @@ class RegisterViewController: UIViewController, Storyboarded {
     
     private func configureUserImage() {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapUserImage))
+        userImage.isUserInteractionEnabled = true
         userImage.addGestureRecognizer(gestureRecognizer)
     }
     
     @objc private func didTapUserImage() {
-        let data = userImage.image?.pngData()
-        print(data)
+        showPickerDialog()
     }
+}
+
+
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    @objc private func showPickerDialog() {
+
+        let alert = UIAlertController(title: "Выбор изображения", message: "Снять на камеру или выбрать из альбома?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Камера", style: .default, handler: {(action: UIAlertAction) in
+            self.getImage(fromSourceType: .camera)
+        }))
+        alert.addAction(UIAlertAction(title: "Альбом", style: .default, handler: {(action: UIAlertAction) in
+            self.getImage(fromSourceType: .photoLibrary)
+        }))
+        alert.addAction(UIAlertAction(title: "Отмена", style: .destructive, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = sourceType
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+        self.dismiss(animated: true) { [weak self] in
+
+            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+            self?.userImage.image = image
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+
 }

@@ -24,10 +24,9 @@ class MapViewCoordinator: Coordinator {
     
     func start(with data: Any?) {
         viewController = MapViewController.instantiate()
-        guard let viewController = viewController, let data = data as? (Realm, User) else { return }
+        guard let viewController = viewController else { return }
         viewController.coordinator = self
-        viewController.realm = data.0
-        viewController.user = data.1
+        viewController.realm = data as? Realm
         navigationController.pushViewController(viewController, animated: true)
         
         if navigationController.viewControllers.count > 1 {
@@ -36,7 +35,17 @@ class MapViewCoordinator: Coordinator {
     }
     
     func childDidFinish(_ child: Coordinator, with data: Any?) {
-        
+        if child.type == .settingsCoordinator {
+            childCoordinators = []
+            viewController?.configureTracking()
+        }
+    }
+    
+    func didTapSettingsButton(with realm: Realm?) {
+        let coordinator = SettingsCoordinator(navigationController: navigationController)
+        childCoordinators.append(coordinator)
+        coordinator.parentCoordinator = self
+        coordinator.start(with: realm)
     }
     
     func didFinish() {

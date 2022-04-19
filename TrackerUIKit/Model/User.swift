@@ -13,5 +13,5 @@ class User: Object {
     @Persisted var passwordHash: String
     @Persisted var name: String
     @Persisted var id: UUID
-    @Persisted var userImageData: Data?
+    @Persisted var useAvatarForTracking: Bool
 }
