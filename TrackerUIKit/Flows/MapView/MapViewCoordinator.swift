@@ -35,7 +35,17 @@ class MapViewCoordinator: Coordinator {
     }
     
     func childDidFinish(_ child: Coordinator, with data: Any?) {
-        
+        if child.type == .settingsCoordinator {
+            childCoordinators = []
+            viewController?.configureTracking()
+        }
+    }
+    
+    func didTapSettingsButton(with realm: Realm?) {
+        let coordinator = SettingsCoordinator(navigationController: navigationController)
+        childCoordinators.append(coordinator)
+        coordinator.parentCoordinator = self
+        coordinator.start(with: realm)
     }
     
     func didFinish() {

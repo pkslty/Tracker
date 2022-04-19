@@ -34,12 +34,24 @@ class LoginCoordinator: Coordinator {
     }
     
     func childDidFinish(_ child: Coordinator, with data: Any?) {
-        
+        if child.type == .registerCoordinator {
+            childCoordinators = []
+            viewController?.coordinator = nil
+            viewController = nil
+            parentCoordinator?.childDidFinish(self, with: data)
+        }
     }
     
     func didFinish(with data: Any?) {
-        viewController?.coordinator = nil
-        viewController = nil
-        parentCoordinator?.childDidFinish(self, with: data)
+        if let data = data as? String {
+            viewController?.coordinator = nil
+            viewController = nil
+            parentCoordinator?.childDidFinish(self, with: data)
+        } else {
+            let coordinator = RegisterCoordinator(navigationController: navigationController)
+            childCoordinators.append(coordinator)
+            coordinator.parentCoordinator = self
+            coordinator.start(with: data)
+        }
     }
 }
