@@ -123,6 +123,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
             imagePickerController.sourceType = sourceType
+            imagePickerController.allowsEditing = true
             self.present(imagePickerController, animated: true, completion: nil)
         }
     }
